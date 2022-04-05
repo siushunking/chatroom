@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+  </head>
+  <body>
+  <h1>Chat Room</h1>
+
+  <input id="name-input" placeholder="name"/>
+  <input id="id-input" placeholder="room ID"/>
+  <button id="btn" onclick="handleBtnClick()">進入房間</button>
+  <h4>Message List</h4>
+  <div id="message-list"></div>
+  <input id="message-input" placeholder="message"/>
+  <button id="message-btn" onclick="handleSendMessage()">送出訊息</button>
+
+  <style>
+    #message-list {
+      border: 1px solid;
+      border-radius: 4px;
+      max-height: 350px;
+      height: 350px;
+    }
+  </style>
+    
+    <script>
+      let socket;
+
+      const nameInput = document.getElementById('name-input')
+      const idInput = document.getElementById('id-input')
+      const messageInput = document.getElementById('message-input')
+      const btn = document.getElementById('btn')
+      const messageBtn = document.getElementById('message-btn')
+      const messageList = document.getElementById('message-list')
+
+      const addMessage = (name, message) => {
+        const messageDom = document.createElement('h3')
+        messageDom.innerHTML = `${name}: ${message}`
+        messageList.appendChild(messageDom)
+      }
+
+      const handleBtnClick = () => {
+        const name = nameInput.value
+        const roomId = idInput.value
+        socket = new WebSocket(`ws://localhost:8080/${roomId}/${name}`);
+
+
+        socket.addEventListener('message', function (event) {
+          const {name, message} = JSON.parse(event.data)
+          addMessage(name, message)
+      });
+      }
+
+      const handleSendMessage = () => {
+        const name = nameInput.value 
+        const message = messageInput.value
+
+        socket.send(JSON.stringify({name, message}));
+
+        messageInput.value = ''
+      }
+
+
+    </script>
+  </body>
+</html>
