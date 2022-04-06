@@ -12,6 +12,6 @@
 
 <img width="582" alt="螢幕截圖 2022-04-06 下午12 35 03" src="https://user-images.githubusercontent.com/85872659/161896835-def81d92-35ac-4e58-bf41-4e35e98ad47b.png">
 
-# 用戶a
+# 用戶b
 
 <img width="447" alt="螢幕截圖 2022-04-06 下午12 35 23" src="https://user-images.githubusercontent.com/85872659/161896840-8afd894c-4e14-4b07-a044-ed08281b35db.png">
